@@ -18,6 +18,7 @@ import {
   updateUserStart,
   updateUserSuccess,
 } from "../redux/user/userSlice";
+import { Link } from "react-router-dom";
 export default function Profile() {
   const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
@@ -176,6 +177,12 @@ export default function Profile() {
         >
           {loading ? "Loading..." : "update"}
         </button>
+        <Link
+          to={"/create-listing"}
+          className="p-3 uppercase rounded-lg text-center text-white bg-slate-500 hover:opacity-95"
+        >
+          Create Listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span
