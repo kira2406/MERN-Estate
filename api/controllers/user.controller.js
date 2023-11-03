@@ -9,8 +9,6 @@ export const test = (req, res) => {
 }
 
 export const updateUser = async (req, res, next) => {
-    console.log("KP req.params", req.params)
-    console.log("KP req.user", req.user)
     if (req.user.id !== req.params.id) return next(errorHandler(401, "You are unauthorized"))
     try {
         if (req.body.password) {
