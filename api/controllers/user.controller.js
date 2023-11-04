@@ -1,6 +1,7 @@
 import { errorHandler } from "../utils/error.js"
 import bcrypt from "bcryptjs";
 import User from '../models/user.model.js'
+import Listing from '../models/listing.model.js'
 
 export const test = (req, res) => {
     res.json({
@@ -37,6 +38,16 @@ export const deleteUser = async (req, res, next) => {
         await User.findByIdAndDelete(req.params.id)
         res.clearCookie('access_token');
         res.status(200).json({ message: 'User has been deleted...' })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getUserListing = async (req, res, next) => {
+    if (req.user.id !== req.params.id) return next(errorHandler(401, "You are unauthorized"))
+    try {
+        const listings = await Listing.find({ userRef: req.params.id })
+        res.status(200).json(listings)
     } catch (error) {
         next(error)
     }
